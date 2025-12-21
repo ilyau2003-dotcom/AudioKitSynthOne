@@ -80,7 +80,7 @@ class AppSettings: Codable {
     // MARK: - MIDI Learn Settings
 
     // mixer controller
-    var masterVolumeCC = 255
+    var masterVolumeCC = 7  // Changed from 255 to 7 (MIDI CC 7 = Channel Volume)
     var morph1SelectorCC = 255
     var morph2SelectorCC = 255
     var morph1SemitoneOffsetCC = 255
