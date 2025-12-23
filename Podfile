@@ -10,7 +10,7 @@ def available_pods
     pod 'AppCenter'
     pod 'AudioKit', '= 4.9.5'
     pod 'Disk', '~> 0.3.2'
-    pod 'Audiobus'
+    # pod 'Audiobus'  # COMMENTED OUT - SDK repository no longer accessible (403 error)
     pod 'OneSignal', '>= 2.6.2', '< 3.0'
 end
 
