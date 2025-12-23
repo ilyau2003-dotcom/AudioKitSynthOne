@@ -20,7 +20,6 @@ end
 
 target 'OneSignalNotificationServiceExtension' do
     pod 'OneSignal', '>= 2.6.2', '< 3.0'
-    pod 'AudioKit', '= 4.9.5'
 end
 
 
