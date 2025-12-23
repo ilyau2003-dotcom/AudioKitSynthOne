@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-12  # macOS 12 with Xcode 14.x - Required for AudioKit 4.9.5 compatibility
+    runs-on: macos-13  # macOS 13 with Xcode 14.x/15.x available
     
     steps:
     - name: Checkout code
@@ -18,9 +18,17 @@ jobs:
     - name: List available Xcode versions
       run: ls /Applications | grep Xcode
       
-    - name: Select Xcode 14.2
+    - name: Select Xcode 14.3.1 (compatible with AudioKit 4.9.5)
       run: |
-        sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer
+        if [ -d "/Applications/Xcode_14.3.1.app" ]; then
+          sudo xcode-select -s /Applications/Xcode_14.3.1.app/Contents/Developer
+        elif [ -d "/Applications/Xcode_14.3.app" ]; then
+          sudo xcode-select -s /Applications/Xcode_14.3.app/Contents/Developer
+        elif [ -d "/Applications/Xcode_14.2.app" ]; then
+          sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer
+        else
+          echo "Using default Xcode"
+        fi
       
     - name: Show Xcode version
       run: xcodebuild -version
@@ -45,7 +53,9 @@ jobs:
           archive \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO
+          CODE_SIGNING_ALLOWED=NO \
+          BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+          ONLY_ACTIVE_ARCH=NO
           
     - name: Export unsigned IPA
       run: |
