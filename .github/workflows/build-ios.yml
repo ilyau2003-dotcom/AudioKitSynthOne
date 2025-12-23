@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14  # macOS 14 with Xcode 15.x
+    runs-on: macos-12  # macOS 12 with Xcode 14.x - Required for AudioKit 4.9.5 compatibility
     
     steps:
     - name: Checkout code
@@ -18,15 +18,9 @@ jobs:
     - name: List available Xcode versions
       run: ls /Applications | grep Xcode
       
-    - name: Select Xcode 15.4 if available
+    - name: Select Xcode 14.2
       run: |
-        if [ -d "/Applications/Xcode_15.4.app" ]; then
-          sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
-        elif [ -d "/Applications/Xcode_15.2.app" ]; then
-          sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
-        else
-          echo "Using default Xcode"
-        fi
+        sudo xcode-select -s /Applications/Xcode_14.2.app/Contents/Developer
       
     - name: Show Xcode version
       run: xcodebuild -version
